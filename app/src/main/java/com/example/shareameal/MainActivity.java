@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
                     ApiResponse apiResponse = response.body();
                     List<Meal> meals = apiResponse.getResult();
                     viewModel.insertAll(meals);
-                    getMealsFromDatabase(); // Add this line
+                    getMealsFromDatabase();
+                    Toast.makeText(MainActivity.this, "Aantal ingelezen items: " + meals.size(), Toast.LENGTH_SHORT).show(); // Add this line
                 }
             }
 

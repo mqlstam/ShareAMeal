@@ -1,17 +1,28 @@
 package com.example.shareameal;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+
+@Entity(tableName = "meal")
 public class Meal {
+
     @PrimaryKey
     private int id;
-    private String name;
-    private String description;
-    private String imageUrl;
-    private String price;
 
+    @ColumnInfo(name = "name")
+    private String name;
+
+    @ColumnInfo(name = "description")
+    private String description;
+
+    @ColumnInfo(name = "image_url")
+    private String imageUrl;
+
+    // Add the price field
+    @ColumnInfo(name = "price")
+    private double price;
     public Meal() {
     }
 
@@ -47,12 +58,11 @@ public class Meal {
         this.imageUrl = imageUrl;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }
-

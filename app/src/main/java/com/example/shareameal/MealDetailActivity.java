@@ -8,14 +8,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
+
 public class MealDetailActivity extends AppCompatActivity {
 
     private ImageView image;
     private TextView name;
     private TextView description;
-
     private TextView price;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,6 @@ public class MealDetailActivity extends AppCompatActivity {
         description = findViewById(R.id.description);
         price = findViewById(R.id.price);
 
-
         Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
         String mealName = intent.getStringExtra("name");
@@ -38,7 +36,6 @@ public class MealDetailActivity extends AppCompatActivity {
         Picasso.get().load(imageUrl).into(image);
         name.setText(mealName);
         description.setText(mealDescription);
-        price.setText(String.valueOf(mealPrice));   }
+        price.setText(String.format("€%.2f", mealPrice));
+    }
 }
-
-
