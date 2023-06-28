@@ -27,18 +27,18 @@ public class MealDetailActivity extends AppCompatActivity {
         description = findViewById(R.id.description);
         price = findViewById(R.id.price);
 
+
         Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
         String mealName = intent.getStringExtra("name");
         String mealDescription = intent.getStringExtra("description");
         String imageUrl = intent.getStringExtra("imageUrl");
-        String mealPrice = intent.getStringExtra("price");
+        double mealPrice = intent.getDoubleExtra("price", 0);
 
         Picasso.get().load(imageUrl).into(image);
         name.setText(mealName);
         description.setText(mealDescription);
-        price.setText(mealPrice);
-   }
+        price.setText(String.valueOf(mealPrice));   }
 }
 
 

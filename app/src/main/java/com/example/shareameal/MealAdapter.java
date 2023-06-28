@@ -35,7 +35,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         Meal meal = meals.get(position);
         holder.name.setText(meal.getName());
         holder.description.setText(meal.getDescription());
-        holder.price.setText(meal.getPrice());
+        holder.price.setText(String.valueOf(meal.getPrice()));
         Picasso.get().load(meal.getImageUrl()).into(holder.image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
