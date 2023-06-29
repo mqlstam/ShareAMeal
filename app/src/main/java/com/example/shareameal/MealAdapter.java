@@ -2,6 +2,7 @@ package com.example.shareameal;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {
     private List<Meal> meals;
     private Context context;
 
+    private static final String TAG = "MealAdapter";
+
     public MealAdapter(List<Meal> meals, Context context) {
         this.meals = meals;
         this.context = context;
+        Log.i(TAG, "MealAdapter: created with " + meals.size() + " meals");
     }
 
     @NonNull
@@ -38,15 +43,18 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         holder.price.setText(String.valueOf(meal.getPrice()));
         Picasso.get().load(meal.getImageUrl()).into(holder.image);
 
+        Log.d(TAG, "onBindViewHolder: binding meal at position " + position);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "onClick: meal item clicked, starting MealDetailActivity");
                 Intent intent = new Intent(context, MealDetailActivity.class);
                 intent.putExtra("id", meal.getId());
                 intent.putExtra("name", meal.getName());
                 intent.putExtra("description", meal.getDescription());
                 intent.putExtra("imageUrl", meal.getImageUrl());
-                intent.putExtra("price",meal.getPrice());
+                intent.putExtra("price", meal.getPrice());
                 context.startActivity(intent);
             }
         });
