@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        int numberOfColumns = getResources().getInteger(R.integer.grid_columns);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, numberOfColumns);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
         viewModel = new ViewModelProvider(this).get(MealViewModel.class);
@@ -59,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     List<Meal> meals = apiResponse.getResult();
                     viewModel.insertAll(meals);
                     getMealsFromDatabase();
-                    Toast.makeText(MainActivity.this, "Aantal ingelezen items: " + meals.size(), Toast.LENGTH_SHORT).show(); // Add this line
-                }
+                    Toast.makeText(MainActivity.this, getString(R.string.items_loaded, meals.size()), Toast.LENGTH_LONG).show();                }
             }
 
             @Override
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private void getMealsFromDatabase() {
         viewModel.getAllMeals().observe(this, meals -> {
             mealAdapter = new MealAdapter(meals, MainActivity.this);
